@@ -32,7 +32,3 @@ It is a social networking site similar to Instagram. You can publish, interact, 
 
 - 0.1
   - Initial Release
-
-## Website Demo
-
-[Demo]()
