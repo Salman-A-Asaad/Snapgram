@@ -56,7 +56,8 @@ const SignupForm = () => {
   const { mutateAsync: createUserAccount, isPending: isCreatingUser } =
     useCreateUserAccount();
   // React Query hook for signing in a user account
-  const { mutateAsync: signInAccount } = useSignInAccount();
+  const { mutateAsync: signInAccount, isPending: isLoadingSginIn } =
+    useSignInAccount();
   // useForm hook initialization with Zod schema validation
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -179,8 +180,12 @@ const SignupForm = () => {
             )}
           />
           {/* Submit button, showing loader if user creation is in progress */}
-          <Button className="shad-button_primary" type="submit">
-            {isCreatingUser ? (
+          <Button
+            disabled={isLoadingSginIn || isCreatingUser}
+            className="shad-button_primary"
+            type="submit"
+          >
+            {isLoadingSginIn || isCreatingUser ? (
               <div className="flex-center gap-2">
                 <Loader />
                 loading...

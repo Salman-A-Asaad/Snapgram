@@ -7,7 +7,11 @@ import { Models } from "appwrite"; // Types for Appwrite models
 // Functional component for the home page
 const Home = () => {
   // Fetching recent posts and loading state using useGetRecentPosts hook
-  const { data: posts, isPending: isPostLoading } = useGetRecentPosts();
+  const {
+    data: posts,
+    isPending: isPostLoading,
+    isRefetching,
+  } = useGetRecentPosts();
 
   // Rendering the component
   return (
@@ -21,7 +25,7 @@ const Home = () => {
           <h2 className="h3-bold md:h2-bold text-left w-full">Home Feed</h2>
 
           {/* Conditional rendering based on loading state */}
-          {isPostLoading && !posts ? (
+          {(isPostLoading && !posts) || isRefetching ? (
             // Display loader if posts are loading
             <Loader />
           ) : (

@@ -28,7 +28,8 @@ const SigninForm = () => {
   // Navigation hook for redirecting users
   const navigate = useNavigate();
   // Mutation hook for signing in the account
-  const { mutateAsync: signInAccount } = useSignInAccount();
+  const { mutateAsync: signInAccount, isPending: isLoadingSginIn } =
+    useSignInAccount();
   // Form hook initialization with Zod validation schema
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
@@ -110,8 +111,12 @@ const SigninForm = () => {
             )}
           />
           {/* Submit button with loading state */}
-          <Button className="shad-button_primary" type="submit">
-            {isUserLoading ? (
+          <Button
+            disabled={isLoadingSginIn}
+            className="shad-button_primary"
+            type="submit"
+          >
+            {isLoadingSginIn ? (
               <div className="flex-center gap-2">
                 <Loader />
                 loading...
