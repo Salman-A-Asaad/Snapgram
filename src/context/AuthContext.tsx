@@ -40,6 +40,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   // Function to check authentication status
   const checkAuthUser = async () => {
     try {
+      setIsLoading(true);
       const currentAccount = await getCurrentUser();
       if (currentAccount) {
         setUser({

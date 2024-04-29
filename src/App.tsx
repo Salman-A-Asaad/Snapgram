@@ -24,10 +24,18 @@ import { Routes, Route, Navigate } from "react-router-dom";
 // Importing UI toaster component
 import { Toaster } from "@/components/ui/toaster";
 import { useUserContext } from "./context/AuthContext";
+import { Loader } from "lucide-react";
 
 // Main component representing the entire application
 function App() {
-  const { isAuthenticated } = useUserContext();
+  const { user, isLoading } = useUserContext();
+  if (isLoading) {
+    return (
+      <div className="w-full h-[100vh] flex-center">
+        <Loader />
+      </div>
+    );
+  }
   return (
     // Main container with flex layout
     <main className="flex h-screen">
@@ -40,51 +48,38 @@ function App() {
         </Route>
         {/* Routes for authenticated users */}
         <Route element={<RootLayout />}>
-          <Route
-            index
-            element={isAuthenticated ? <Home /> : <Navigate to="/sign-in" />}
-          />
+          <Route index element={user ? <Home /> : <Navigate to="/sign-in" />} />
           <Route
             path="/explore"
-            element={isAuthenticated ? <Explore /> : <Navigate to="/sign-in" />}
+            element={user ? <Explore /> : <Navigate to="/sign-in" />}
           />
           <Route
             path="/saved"
-            element={isAuthenticated ? <Saved /> : <Navigate to="/sign-in" />}
+            element={user ? <Saved /> : <Navigate to="/sign-in" />}
           />
           <Route
             path="/all-users"
-            element={
-              isAuthenticated ? <AllUsers /> : <Navigate to="/sign-in" />
-            }
+            element={user ? <AllUsers /> : <Navigate to="/sign-in" />}
           />
           <Route
             path="/create-post"
-            element={
-              isAuthenticated ? <CreatePost /> : <Navigate to="/sign-in" />
-            }
+            element={user ? <CreatePost /> : <Navigate to="/sign-in" />}
           />
           <Route
             path="/update-post/:id"
-            element={
-              isAuthenticated ? <EditPost /> : <Navigate to="/sign-in" />
-            }
+            element={user ? <EditPost /> : <Navigate to="/sign-in" />}
           />
           <Route
             path="/posts/:id"
-            element={
-              isAuthenticated ? <PostDetails /> : <Navigate to="/sign-in" />
-            }
+            element={user ? <PostDetails /> : <Navigate to="/sign-in" />}
           />
           <Route
             path="/profile/:id/*"
-            element={isAuthenticated ? <Profile /> : <Navigate to="/sign-in" />}
+            element={user ? <Profile /> : <Navigate to="/sign-in" />}
           />
           <Route
             path="/update-profile/:id"
-            element={
-              isAuthenticated ? <UpdateProfile /> : <Navigate to="/sign-in" />
-            }
+            element={user ? <UpdateProfile /> : <Navigate to="/sign-in" />}
           />
         </Route>
       </Routes>
