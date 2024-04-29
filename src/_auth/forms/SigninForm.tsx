@@ -112,11 +112,11 @@ const SigninForm = () => {
           />
           {/* Submit button with loading state */}
           <Button
-            disabled={isLoadingSginIn}
+            disabled={isLoadingSginIn || isUserLoading}
             className="shad-button_primary"
             type="submit"
           >
-            {isLoadingSginIn ? (
+            {isLoadingSginIn || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader />
                 loading...
