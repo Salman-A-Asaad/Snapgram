@@ -6,6 +6,7 @@ import { useEffect } from "react"; // Hook for side effects
 import { useUserContext } from "@/context/AuthContext"; // Custom hook for accessing user context
 import { sidebarLinks } from "@/constants"; // Constants for sidebar links
 import { INavLink } from "@/types"; // Interface for navigation links
+import { getCleanImageUrl } from "@/helper/helper";
 
 // LeftSidebar component
 const LeftSidebar = () => {
@@ -45,7 +46,10 @@ const LeftSidebar = () => {
         <Link to={`/profile/${user.id}`} className="flex gap-3 items-center">
           {/* User profile picture */}
           <img
-            src={user.imageUrl || "/assets/images/profile-placeholder.svg"} // User profile image source
+            src={
+              getCleanImageUrl(user.imageUrl) ||
+              "/assets/images/profile-placeholder.svg"
+            } // User profile image source
             alt="profile" // Alternative text for the profile picture
             className="h-14 w-14 object-cover rounded-full" // CSS classes for styling
           />

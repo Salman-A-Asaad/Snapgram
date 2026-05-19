@@ -36,6 +36,7 @@ import { useUserContext } from "@/context/AuthContext";
 import { useToast } from "../ui/use-toast";
 // Importing useNavigate hook from React Router for navigation
 import { useNavigate } from "react-router-dom";
+import { getCleanImageUrl } from "@/helper/helper";
 
 // Defining type for PostFormProps
 type PostFormProps = {
@@ -139,7 +140,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
               <FormControl>
                 <FileUploader
                   fieldChange={field.onChange}
-                  mediaUrl={post?.imageUrl}
+                  mediaUrl={getCleanImageUrl(post?.imageUrl)}
                 />
               </FormControl>
               <FormMessage className="shad-form-message" />

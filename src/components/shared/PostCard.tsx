@@ -4,6 +4,7 @@ import { formatDateString } from "@/lib/utils"; // Utility function for formatti
 import { Models } from "appwrite"; // Models from Appwrite
 import { Link } from "react-router-dom"; // Link component from React Router
 import PostStats from "./PostStats"; // Component for displaying post statistics
+import { getCleanImageUrl } from "@/helper/helper";
 
 // Define props type for PostCard component
 type PostCardProps = {
@@ -30,7 +31,7 @@ const PostCard = ({ post }: PostCardProps) => {
             {/* Creator profile picture */}
             <img
               src={
-                post?.creator?.imageUrl ||
+                getCleanImageUrl(post?.creator?.imageUrl) ||
                 "assets/icons/profile-placeholder.svg"
               } // Creator profile picture URL
               alt="creator" // Alternative text for the image
@@ -92,7 +93,10 @@ const PostCard = ({ post }: PostCardProps) => {
         </div>
         {/* Post image */}
         <img
-          src={post.imageUrl || "/assets/icons/profile-placeholder.svg"} // Post image URL
+          src={
+            getCleanImageUrl(post.imageUrl) ||
+            "/assets/icons/profile-placeholder.svg"
+          } // Post image URL
           alt="post image" // Alternative text for the image
           className="post-card_img " // CSS classes for styling
         />

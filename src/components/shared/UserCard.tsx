@@ -9,6 +9,7 @@ import {
 import { toast } from "../ui/use-toast"; // Toast component for displaying notifications
 import { useState } from "react"; // React hook for managing state
 import { Loader } from "lucide-react"; // Loader component for indicating loading state
+import { getCleanImageUrl } from "@/helper/helper";
 
 // Define props type for UserCard component
 type UserCardProps = {
@@ -67,7 +68,10 @@ const UserCard = ({ me, user, following }: UserCardProps) => {
     <Link to={`/profile/${user.$id}`} className="user-card">
       {/* User profile image */}
       <img
-        src={user.imageUrl || "/assets/icons/profile-placeholder.svg"} // User profile image URL or placeholder image
+        src={
+          getCleanImageUrl(user.imageUrl) ||
+          "/assets/icons/profile-placeholder.svg"
+        } // User profile image URL or placeholder image
         alt="creator" // Alternative text for the image
         className="rounded-full w-14 h-14 object-cover" // CSS classes for styling
       />
@@ -100,8 +104,8 @@ const UserCard = ({ me, user, following }: UserCardProps) => {
         {isLoadingUpdateFollow || isLoadingUpdateUnFollow
           ? ""
           : isFollowing
-          ? "Following"
-          : "Follow"}
+            ? "Following"
+            : "Follow"}
       </Button>
     </Link>
   );

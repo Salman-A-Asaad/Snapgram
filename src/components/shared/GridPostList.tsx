@@ -3,6 +3,7 @@ import { useUserContext } from "@/context/AuthContext"; // Custom hook for acces
 import { Models } from "appwrite"; // Models from Appwrite
 import { Link } from "react-router-dom"; // Link component from React Router
 import PostStats from "./PostStats"; // Component for displaying post statistics
+import { getCleanImageUrl } from "@/helper/helper";
 
 // Define props type for GridPostList component
 type GridPostListProps = {
@@ -32,7 +33,7 @@ const GridPostList = ({
             <Link to={`/posts/${post.$id}`} className="grid-post_link">
               {/* Image representing the post */}
               <img
-                src={post.imageUrl} // URL of the post image
+                src={getCleanImageUrl(post.imageUrl)} // URL of the post image
                 alt="post" // Alternative text for the image
                 className="h-full w-full object-cover" // CSS classes for styling
               />
@@ -45,7 +46,7 @@ const GridPostList = ({
                 <div className="flex items-center justify-start gap-2">
                   {/* User avatar */}
                   <img
-                    src={post.creator.imageUrl} // URL of the user's avatar
+                    src={getCleanImageUrl(post.creator.imageUrl)} // URL of the user's avatar
                     alt="creator" // Alternative text for the avatar
                     className="h-8 w-8 rounded-full object-cover" // CSS classes for styling
                   />

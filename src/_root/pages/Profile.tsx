@@ -21,6 +21,7 @@ import {
 import { useEffect, useState } from "react"; // Hooks for managing component lifecycle
 import { toast } from "@/components/ui/use-toast"; // Toast component for displaying notifications
 import { Loader as ReactLoader } from "lucide-react"; // Loader component from Lucide React library
+import { getCleanImageUrl } from "@/helper/helper";
 
 // Interface for props of StatBlock component
 interface StabBlockProps {
@@ -53,7 +54,7 @@ const Profile = () => {
 
   // State to manage follow status
   const [isFollowing, setIsFollowing] = useState<boolean>(
-    me?.followers.includes(id)
+    me?.followers.includes(id),
   );
 
   // Function to handle follow/unfollow actions
@@ -107,9 +108,9 @@ const Profile = () => {
         <div className="flex xl:flex-row flex-col max-xl:items-center flex-1 gap-7">
           {/* Profile image */}
           <img
-            src={
-              currentUser.imageUrl || "/assets/icons/profile-placeholder.svg"
-            }
+            src={getCleanImageUrl(
+              currentUser.imageUrl || "/assets/icons/profile-placeholder.svg",
+            )}
             alt="profile"
             className="w-28 h-28 lg:h-36 lg:w-36 object-cover rounded-full"
           />
@@ -183,8 +184,8 @@ const Profile = () => {
                 {isLoadingUpdateFollow || isLoadingUpdateUnFollow
                   ? ""
                   : isFollowing
-                  ? "Following"
-                  : "Follow"}
+                    ? "Following"
+                    : "Follow"}
               </Button>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { Button } from "../ui/button"; // Button component
 import { useSignOutAccount } from "@/lib/react-query/quueriesAndMutations"; // Custom hook for signing out user
 import { useEffect } from "react"; // React hook for side effects
 import { useUserContext } from "@/context/AuthContext"; // Custom hook for accessing user context
+import { getCleanImageUrl } from "@/helper/helper";
 
 // Topbar component
 const Topbar = () => {
@@ -47,7 +48,10 @@ const Topbar = () => {
           {/* Link to user profile */}
           <Link to={`/profile/${user.id}`} className="flex-center gap-3">
             <img
-              src={user.imageUrl || `/assets/icons/profile-placeholder.svg`} // User profile image or placeholder image
+              src={
+                getCleanImageUrl(user.imageUrl) ||
+                `/assets/icons/profile-placeholder.svg`
+              } // User profile image or placeholder image
               alt="profile-image" // Alternative text for profile image
               className="h-8 w-8 rounded-full object-cover" // CSS classes for styling
             />

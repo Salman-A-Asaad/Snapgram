@@ -3,6 +3,7 @@ import { useCallback, useState } from "react"; // React hooks for state and side
 import { FileWithPath, useDropzone } from "react-dropzone"; // Dropzone component for file uploads
 
 import { convertFileToUrl } from "@/lib/utils"; // Utility function for converting file to URL
+import { getCleanImageUrl } from "@/helper/helper";
 
 // Define props type for ProfileUploader component
 type ProfileUploaderProps = {
@@ -28,7 +29,7 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
       // Convert the first accepted file to URL and update state
       setFileUrl(convertFileToUrl(acceptedFiles[0]));
     },
-    [file] // Dependency array
+    [file], // Dependency array
   );
 
   // Configuration object for the Dropzone component
@@ -49,7 +50,9 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
       <div className="cursor-pointer flex-center gap-4">
         {/* Display the selected image or placeholder image */}
         <img
-          src={fileUrl || "/assets/icons/profile-placeholder.svg"} // URL of the image to be displayed
+          src={
+            getCleanImageUrl(fileUrl) || "/assets/icons/profile-placeholder.svg"
+          } // URL of the image to be displayed
           alt="image" // Alternative text for the image
           className="h-24 w-24 rounded-full object-cover object-top" // CSS classes for styling
         />

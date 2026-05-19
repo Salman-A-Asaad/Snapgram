@@ -4,6 +4,7 @@ import PostStats from "@/components/shared/PostStats"; // Component for displayi
 import { Button } from "@/components/ui/button"; // Button component for user interactions
 import { toast } from "@/components/ui/use-toast"; // Toast component for displaying notifications
 import { useUserContext } from "@/context/AuthContext"; // Hook for accessing user context
+import { getCleanImageUrl } from "@/helper/helper";
 import {
   useDeletePost,
   useGetPostId,
@@ -57,7 +58,11 @@ const PostDetails = () => {
         // Render post details if post data is available
         <div className="post_details-card">
           {/* Post image */}
-          <img src={post?.imageUrl} alt="post" className="post_details-img" />
+          <img
+            src={getCleanImageUrl(post?.imageUrl)}
+            alt="post"
+            className="post_details-img"
+          />
           {/* Post information */}
           <div className="post_details-info">
             {/* Post creator information */}
@@ -69,7 +74,7 @@ const PostDetails = () => {
                 {/* Creator profile image */}
                 <img
                   src={
-                    post?.creator?.imageUrl ||
+                    getCleanImageUrl(post?.creator?.imageUrl) ||
                     "assets/icons/profile-placeholder.svg"
                   }
                   alt="creator"

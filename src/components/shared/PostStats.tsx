@@ -19,7 +19,9 @@ type PostStatsProps = {
 // PostStats component
 const PostStats = ({ post, userId }: PostStatsProps) => {
   // Extracting liked users from the post object
-  const likedList = post?.likes.map((user: Models.Document) => user.$id);
+  const likedList = (post?.likes ?? []).map(
+    (user: Models.Document) => user.$id,
+  );
 
   // State for storing liked users
   const [likes, setLikes] = useState(likedList);
@@ -42,7 +44,7 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
 
   // Finding the saved post record of the current user
   const savedPostRecord = currentUser?.save.find(
-    (record: Models.Document) => record.post.$id === post?.$id
+    (record: Models.Document) => record.post.$id === post?.$id,
   );
 
   // Effect hook to update isSaved state when currentUser changes
